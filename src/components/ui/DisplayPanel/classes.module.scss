@@ -2,13 +2,18 @@
   background: #fefefe;
   max-width: 1000px;
   width: 100%;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
+.panel_header {
+  padding: 1.5rem 2.5rem;
+}
+
+/*
 .panel_header,
 .panel_body {
-  padding: 1rem;
 }
+*/
 
 .panel_header {
   border-bottom: 1px solid var(--faintDark);

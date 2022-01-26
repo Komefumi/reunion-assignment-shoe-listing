@@ -26,7 +26,7 @@
   align-items: center;
   border: 1px solid var(--lessFaintDark);
   border-radius: 10px;
-  padding: 10px;
+  padding: 12.5px;
 }
 
 .panel_header_content .search_bar .search_icon {
@@ -40,4 +40,9 @@
   border: none;
   width: 100%;
   font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.panel_body_content {
+  padding: 1rem;
 }

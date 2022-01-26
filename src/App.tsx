@@ -21,7 +21,7 @@ export default function App() {
             </div>
           }
         >
-          <div>Body Content</div>
+          <div className={classes.panel_body_content}>Body Content</div>
         </Panel>
       </DimBackground>
     </div>
