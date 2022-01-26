@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import type { IProduct } from "./structure";
 import type { ClassName } from "./alias";
 
 export interface WrapperProps {
@@ -11,4 +12,14 @@ export interface WrapperWithClassNameProps extends WrapperProps {
 
 export interface PanelProps extends WrapperWithClassNameProps {
   headerChildren: ReactNode;
+}
+
+export interface FilterListerProps extends WrapperProps {
+  className?: ClassName;
+  title: string;
+}
+
+export interface ProductCardProps {
+  className?: ClassName;
+  product: IProduct;
 }

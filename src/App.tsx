@@ -1,10 +1,24 @@
+import clsx from "clsx";
 import DimBackground from "@ui/DimBackground";
-import Panel from "@ui/DisplayPanel";
+import Panel, { AsideForPanel } from "@ui/DisplayPanel";
+import ProductCard from "@ui/ProductCard";
+import { Category, sizes } from "@data/defined";
+import { generatedProducts } from "@data/generated";
+import { FilterListerProps } from "@app/types/prop-types";
 import SearchIconSVG from "@assets/search-icon.svg";
 import classes from "./App.module.scss";
 
+const FilterLister = ({ className, title, children }: FilterListerProps) => {
+  return (
+    <div className={clsx(classes.filters_lister, className)}>
+      <h4 className={classes.title}>{title}</h4>
+      <main className={classes.body}>{children}</main>
+    </div>
+  );
+};
+
 export default function App() {
-  console.log({ SearchIconSVG });
+  console.log({ generatedProducts });
   return (
     <div className={classes.app}>
       <DimBackground className={classes.background}>
@@ -21,7 +35,42 @@ export default function App() {
             </div>
           }
         >
-          <div className={classes.panel_body_content}>Body Content</div>
+          <div className={classes.panel_body_content}>
+            <AsideForPanel className={classes.panel_body_filters}>
+              <FilterLister title="Categories">
+                {Object.keys(Category).map((key) => {
+                  // @ts-ignore
+                  const categoryString = Category[key];
+                  return (
+                    <div
+                      className={classes.category_select_with_label}
+                      key={key as string}
+                    >
+                      <label>{categoryString}</label>
+                      <input type="checkbox" value={categoryString} />
+                    </div>
+                  );
+                })}
+              </FilterLister>
+              <FilterLister title="Price Range">b</FilterLister>
+              <FilterLister title="Size">
+                {sizes.map((currentSize) => (
+                  <button key={currentSize}>{currentSize}</button>
+                ))}
+              </FilterLister>
+            </AsideForPanel>
+            <main className={classes.panel_body_item_listing}>
+              <header className={classes.header}>
+                <h4 className={classes.title}>New Arrivals</h4>
+                <div className={classes.sort_select}>Sort by Price</div>
+              </header>
+              <main>
+                {generatedProducts.map((productData, index) => (
+                  <ProductCard key={index} product={productData} />
+                ))}
+              </main>
+            </main>
+          </div>
         </Panel>
       </DimBackground>
     </div>

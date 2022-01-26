@@ -5,6 +5,9 @@ export enum Category {
   SHOE_ACCESSORIES = "Shoe Accessories",
 }
 
+export const CategoryKeys = Object.keys(Category) as string[];
+export const CategoryValues = Object.values(Category) as Category[];
+
 export enum SortMode {
   PRICE = "PRICE",
   SIZE = "SIZE",

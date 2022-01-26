@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 100px 0;
 }
 
 .panel {
@@ -44,5 +45,23 @@
 }
 
 .panel_body_content {
+  display: flex;
+}
+
+.panel_body_item_listing {
+  width: 100%;
+}
+
+.panel_body_item_listing .header {
+  display: flex;
+  width: 100%;
   padding: 1rem;
+}
+
+.panel_body_item_listing .header .title {
+  margin: 0;
+}
+
+.panel_body_item_listing .header .sort_select {
+  margin-left: auto;
 }
