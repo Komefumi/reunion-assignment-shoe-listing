@@ -22,6 +22,7 @@
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "concurrently": "^7.0.0",
+    "css-loader": "^6.5.1",
     "html-webpack-plugin": "^5.5.0",
     "live-server": "^1.2.1",
     "mini-css-extract-plugin": "^2.5.3",
