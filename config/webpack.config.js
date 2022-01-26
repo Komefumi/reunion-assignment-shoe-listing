@@ -30,7 +30,7 @@ module.exports = webpackMerge(
     ],
     resolve: {
       plugins: [new TsconfigPathsPlugin({ configFile: tsconfigFilePath })],
-      extensions: ["", ".js", ".ts", ".tsx"],
+      extensions: ["", ".js", ".json", ".ts", ".tsx"],
     },
   },
   scriptsConfig,
