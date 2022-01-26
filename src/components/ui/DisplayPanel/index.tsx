@@ -1,6 +1,15 @@
 import clsx from "clsx";
-import { PanelProps } from "@app/types/prop-types";
+import { PanelProps, WrapperWithClassNameProps } from "@app/types/prop-types";
 import classes from "./classes.module.scss";
+
+export function AsideForPanel({
+  className,
+  children,
+}: WrapperWithClassNameProps) {
+  return (
+    <div className={clsx(classes.aside_for_panel, className)}>{children}</div>
+  );
+}
 
 export default function CleanWhitePanel({
   className,

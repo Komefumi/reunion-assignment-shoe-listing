@@ -1,5 +1,5 @@
-import DimBackground from "@ui/DimGreyBackground";
-import Panel from "@ui/CleanWhitePanel";
+import DimBackground from "@ui/DimBackground";
+import Panel from "@ui/DisplayPanel";
 import classes from "./App.module.scss";
 
 export default function App() {
