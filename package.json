@@ -1,0 +1,12 @@
+{
+  "name": "reunion-assignment-shoe-listing",
+  "version": "0.0.1",
+  "description": "Assignment for front-end engineer (full time) at reunion, built with React and TypeScript",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arjun Raju Pillai <komefumi@protonmail.ch>",
+  "license": "ISC"
+}
