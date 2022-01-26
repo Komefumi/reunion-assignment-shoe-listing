@@ -1,4 +1,6 @@
+import { Provider } from "react-redux";
 import clsx from "clsx";
+import store from "@state/store";
 import DimBackground from "@ui/DimBackground";
 import Panel, { AsideForPanel } from "@ui/DisplayPanel";
 import ProductCard from "@ui/ProductCard";
@@ -17,7 +19,7 @@ const FilterLister = ({ className, title, children }: FilterListerProps) => {
   );
 };
 
-export default function App() {
+function App() {
   console.log({ generatedProducts });
   return (
     <div className={classes.app}>
@@ -74,5 +76,13 @@ export default function App() {
         </Panel>
       </DimBackground>
     </div>
+  );
+}
+
+export default function AppPrepared() {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
   );
 }
