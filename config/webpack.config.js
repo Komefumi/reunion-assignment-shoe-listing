@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const HtmlWebpackPlguin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
@@ -7,7 +8,13 @@ const {
   stylesConfig,
   imagesConfig,
 } = require("./webpack.utils");
-const { entryFilePath, tsconfigFilePath, distPath } = require("./paths");
+const {
+  entryFilePath,
+  tsconfigFilePath,
+  webpageTemplatePath,
+  distPath,
+} = require("./paths");
+const { ProvidePlugin } = require("webpack");
 
 module.exports = webpackMerge(
   {
@@ -16,7 +23,11 @@ module.exports = webpackMerge(
       filename: "[name]-[fullhash:15].js",
       path: distPath,
     },
-    plugins: [new HtmlWebpackPlguin(), new CleanWebpackPlugin()],
+    plugins: [
+      new HtmlWebpackPlguin({ template: webpageTemplatePath }),
+      new CleanWebpackPlugin(),
+      new webpack.ProvidePlugin({ React: "react" }),
+    ],
     resolve: {
       plugins: [new TsconfigPathsPlugin({ configFile: tsconfigFilePath })],
     },

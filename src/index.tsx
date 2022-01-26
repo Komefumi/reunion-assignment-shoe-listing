@@ -1,1 +1,3 @@
-console.log("It runs and runs!");
+import { render } from "react-dom";
+
+render(<div>Rendering</div>, document.getElementById("entry"));
