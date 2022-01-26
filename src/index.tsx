@@ -1,3 +1,5 @@
 import { render } from "react-dom";
+import App from "@app/App";
+import "./global-styles.scss";
 
-render(<div>Rendering</div>, document.getElementById("entry"));
+render(<App />, document.getElementById("entry"));
