@@ -1,16 +1,15 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { MAX_PRICE } from "@config";
+import { IState, SortMode } from "@my-types/state";
 import {
-  IState,
   SetPriceRangeAction,
   SetCategoriesAction,
   CategoryTriggerAction,
   SetSizesAction,
   SizeTriggerAction,
   SetQueryAction,
-  SortMode,
   SetSortModeAction,
-} from "@my-types/state";
+} from "@my-types/actions";
 import actionNames from "./actions/names";
 
 const {
