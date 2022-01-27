@@ -1,7 +1,10 @@
-import { Category } from "@my-types/state";
+import { Category, SortMode } from "@my-types/state";
 
 export const CategoryKeys = Object.keys(Category) as string[];
 export const CategoryValues = Object.values(Category) as Category[];
+
+export const SortModeKeys = Object.keys(SortMode) as string[];
+export const SortModeValues = Object.values(SortMode) as SortMode[];
 
 export const sizes: number[] = (() => {
   const sizesGenerated = [];
@@ -11,5 +14,4 @@ export const sizes: number[] = (() => {
   return sizesGenerated;
 })();
 
-export { Category };
-export { SortMode } from "@my-types/state";
+export { Category, SortMode };

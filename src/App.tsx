@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 import { Provider } from "react-redux";
 import clsx from "clsx";
 import store from "@state/store";
@@ -12,36 +12,69 @@ import {
   makeSizeTrigger,
   setSearchQuery,
   setPriceRange,
+  setSortMode,
 } from "@state/actions/creators";
 import DimBackground from "@ui/DimBackground";
 import Panel, { AsideForPanel } from "@ui/DisplayPanel";
 import ProductCard from "@ui/ProductCard";
 import RangeSlider from "@ui/RangeSlider";
-import { Category, sizes } from "@data/defined";
+import { Category, sizes, SortModeValues } from "@data/defined";
 import { IPriceRange } from "@my-types/alias";
+import { SortMode } from "@my-types/state";
 import {
   VisualSideHandleMode,
   FilterControllerProps,
-} from "@app/types/prop-types";
+} from "@my-types/prop-types";
 import SearchIconSVG from "@assets/search-icon.svg";
+import ExpandIconSVG from "@assets/down-arrow.svg";
 import classes from "./App.module.scss";
 
 const FilterController = ({
   className,
   title,
+  headerContent,
   children,
+  bodyContent,
 }: FilterControllerProps) => {
+  if ((!title && !headerContent) || (title && headerContent)) {
+    throw new Error(
+      "Must provide either title or headerContent (but not both)"
+    );
+  }
+  if ((!children && !bodyContent) || (children && bodyContent)) {
+    throw new Error(
+      "Must provide either children or bodyContent (but not both)"
+    );
+  }
   return (
     <div className={clsx(classes.filter_controller, className)}>
-      <h4 className={classes.title}>{title}</h4>
-      <main className={classes.body}>{children}</main>
+      {title && <h4 className={classes.title}>{title}</h4>}
+      {!!headerContent && headerContent}
+      {!!children && <main className={classes.body}>{children}</main>}
+      {!!bodyContent && bodyContent}
     </div>
   );
 };
 
 function App() {
+  const [isSortModeSelectOpen, setIsSortModeSelectOpen] =
+    useState<boolean>(false);
+  const [
+    isCategoriesFilterControllerOpen,
+    setIsCategoriesFilterControllerOpen,
+  ] = useState<boolean>(true);
+  const toggleSortModeSelectMenu = () => {
+    setIsSortModeSelectOpen(!isSortModeSelectOpen);
+  };
+  const toggleOpenCategoryFilterController = () => {
+    setIsCategoriesFilterControllerOpen(!isCategoriesFilterControllerOpen);
+  };
   const dispatch = useAppDispatch();
-  const { filters, searchQuery } = useAppSelector((state) => state);
+  const {
+    filters,
+    searchQuery,
+    sortMode: currentlyChosenSortMode,
+  } = useAppSelector((state) => state);
   const { priceRange } = filters;
 
   const filteredProducts = useGetFilteredProducts();
@@ -76,31 +109,57 @@ function App() {
             <AsideForPanel className={classes.panel_body_filters}>
               <FilterController
                 className={classes.categories}
-                title="Categories"
-              >
-                {Object.keys(Category).map((key) => {
-                  // @ts-ignore
-                  const categoryString = Category[key];
-                  const isChecked = filters.categories.includes(categoryString);
-                  const onChange = (_event: ChangeEvent<HTMLInputElement>) => {
-                    dispatch(makeCategoryTrigger(categoryString));
-                  };
-                  return (
-                    <div
-                      className={classes.category_select_with_label}
-                      key={key as string}
+                headerContent={
+                  <header
+                    className={clsx(
+                      classes.header,
+                      isCategoriesFilterControllerOpen && classes.is_open
+                    )}
+                  >
+                    <h4 className={classes.title}>Categories</h4>
+                    <button
+                      className={classes.expander}
+                      onClick={toggleOpenCategoryFilterController}
                     >
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        value={categoryString}
-                        onChange={onChange}
-                      />
-                      <label>{categoryString}</label>
-                    </div>
-                  );
-                })}
-              </FilterController>
+                      <ExpandIconSVG />
+                    </button>
+                  </header>
+                }
+                bodyContent={
+                  <div
+                    className={clsx(
+                      classes.body_content,
+                      isCategoriesFilterControllerOpen && classes.is_open
+                    )}
+                  >
+                    {Object.keys(Category).map((key) => {
+                      // @ts-ignore
+                      const categoryString = Category[key];
+                      const isChecked =
+                        filters.categories.includes(categoryString);
+                      const onChange = (
+                        _event: ChangeEvent<HTMLInputElement>
+                      ) => {
+                        dispatch(makeCategoryTrigger(categoryString));
+                      };
+                      return (
+                        <div
+                          className={classes.category_select_with_label}
+                          key={key as string}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            value={categoryString}
+                            onChange={onChange}
+                          />
+                          <label>{categoryString}</label>
+                        </div>
+                      );
+                    })}
+                  </div>
+                }
+              />
               <FilterController title="Price Range">
                 <RangeSlider
                   lowerBound={0}
@@ -138,7 +197,46 @@ function App() {
             <main className={classes.panel_body_item_listing}>
               <header className={classes.header}>
                 <h4 className={classes.title}>New Arrivals</h4>
-                <div className={classes.sort_select}>Sort by Price</div>
+                <div className={classes.sort_select}>
+                  <div className={classes.label}>Sort By</div>
+                  <div className={classes.current_value}>
+                    {currentlyChosenSortMode}
+                  </div>
+                  <button
+                    className={classes.expander}
+                    onClick={toggleSortModeSelectMenu}
+                  >
+                    <ExpandIconSVG />
+                  </button>
+                  <ul
+                    className={clsx(
+                      classes.sort_options,
+                      isSortModeSelectOpen && classes.is_open
+                    )}
+                  >
+                    {SortModeValues.map((currentValue: SortMode) => {
+                      const isCurrentlySelected =
+                        currentValue === currentlyChosenSortMode;
+                      const handleSelect = (
+                        _event: MouseEvent<HTMLLIElement>
+                      ) => {
+                        dispatch(setSortMode(currentValue));
+                        setIsSortModeSelectOpen(false);
+                      };
+                      return (
+                        <li
+                          key={currentValue}
+                          className={clsx(
+                            isCurrentlySelected && classes.selected
+                          )}
+                          onClick={handleSelect}
+                        >
+                          Sort by {currentValue}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               </header>
               <main className={classes.filtered_product_listing}>
                 {filteredProducts.map((productData, index) => {

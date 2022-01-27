@@ -8,6 +8,8 @@ import {
   SetSizesAction,
   SizeTriggerAction,
   SetQueryAction,
+  SortMode,
+  SetSortModeAction,
 } from "@my-types/state";
 import actionNames from "./actions/names";
 
@@ -18,6 +20,7 @@ const {
   SET_SIZES,
   SIZE_TRIGGER,
   SET_SEARCH_QUERY,
+  SET_SORT_MODE,
 } = actionNames;
 
 export const initialState: IState = {
@@ -27,6 +30,7 @@ export const initialState: IState = {
     sizes: [],
   },
   searchQuery: "",
+  sortMode: SortMode.PRICE,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -60,6 +64,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(SET_SEARCH_QUERY, (state, action: SetQueryAction) => {
       state.searchQuery = action.payload;
+    })
+    .addCase(SET_SORT_MODE, (state, action: SetSortModeAction) => {
+      state.sortMode = action.payload;
     });
 });
 

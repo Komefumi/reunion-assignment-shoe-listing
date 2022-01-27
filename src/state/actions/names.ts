@@ -5,4 +5,5 @@ export default {
   SET_SIZES: "set-sizes",
   SIZE_TRIGGER: "size-trigger",
   SET_SEARCH_QUERY: "set-search-query",
+  SET_SORT_MODE: "set-sort-mode",
 };

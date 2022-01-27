@@ -14,9 +14,12 @@ export interface PanelProps extends WrapperWithClassNameProps {
   headerChildren: ReactNode;
 }
 
-export interface FilterControllerProps extends WrapperProps {
+export interface FilterControllerProps {
   className?: ClassName;
-  title: string;
+  title?: string;
+  headerContent?: ReactNode;
+  children?: ReactNode;
+  bodyContent?: ReactNode;
 }
 
 export enum VisualSideHandleMode {

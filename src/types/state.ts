@@ -9,8 +9,8 @@ export enum Category {
 }
 
 export enum SortMode {
-  PRICE = "PRICE",
-  SIZE = "SIZE",
+  PRICE = "Price",
+  SIZE = "Size",
 }
 
 export interface IState {
@@ -20,6 +20,7 @@ export interface IState {
     sizes: Size[];
   };
   searchQuery: SearchQuery;
+  sortMode: SortMode;
 }
 
 export interface IPayloadObject<T> {
@@ -36,3 +37,4 @@ export type CategoryTriggerAction = PayloadAction<Category>;
 export type SetSizesAction = PayloadAction<Size[]>;
 export type SizeTriggerAction = PayloadAction<Size>;
 export type SetQueryAction = PayloadAction<SearchQuery>;
+export type SetSortModeAction = PayloadAction<SortMode>;
