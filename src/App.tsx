@@ -2,7 +2,11 @@ import { ChangeEvent, MouseEvent } from "react";
 import { Provider } from "react-redux";
 import clsx from "clsx";
 import store from "@state/store";
-import { useAppSelector, useAppDispatch } from "@state/hooks";
+import {
+  useAppSelector,
+  useAppDispatch,
+  useGetFilteredProducts,
+} from "@state/hooks";
 import {
   makeCategoryTrigger,
   makeSizeTrigger,
@@ -12,7 +16,6 @@ import DimBackground from "@ui/DimBackground";
 import Panel, { AsideForPanel } from "@ui/DisplayPanel";
 import ProductCard from "@ui/ProductCard";
 import { Category, sizes } from "@data/defined";
-import { generatedProducts } from "@data/generated";
 import {
   VisualSideHandleMode,
   FilterControllerProps,
@@ -37,35 +40,7 @@ function App() {
   const dispatch = useAppDispatch();
   const { filters, searchQuery } = useAppSelector((state) => state);
 
-  const filteredProducts = generatedProducts.filter((currentProduct) => {
-    const { categories, sizes, priceRange } = filters;
-    const [minPrice, maxPrice] = priceRange;
-    const searchQueryLowercase = searchQuery.toLowerCase();
-
-    if (categories.length) {
-      if (!categories.includes(currentProduct.category)) return false;
-    }
-
-    if (sizes.length) {
-      if (!sizes.includes(currentProduct.size)) return false;
-    }
-
-    const { price } = currentProduct;
-
-    if (price < minPrice || price > maxPrice) {
-      return false;
-    }
-
-    if (searchQuery.length) {
-      if (
-        !currentProduct.name.toLowerCase().includes(searchQueryLowercase) &&
-        !currentProduct.subtitle.toLowerCase().includes(searchQueryLowercase)
-      )
-        return false;
-    }
-
-    return true;
-  });
+  const filteredProducts = useGetFilteredProducts();
 
   const handleSearchQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
     const nextSearchQuery = e.target.value;
