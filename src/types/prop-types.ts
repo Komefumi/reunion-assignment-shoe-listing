@@ -14,12 +14,19 @@ export interface PanelProps extends WrapperWithClassNameProps {
   headerChildren: ReactNode;
 }
 
-export interface FilterListerProps extends WrapperProps {
+export interface FilterControllerProps extends WrapperProps {
   className?: ClassName;
   title: string;
+}
+
+export enum VisualSideHandleMode {
+  ORANGE = "ORANGE",
+  BLACK = "BLACK",
+  GREY = "GREY",
 }
 
 export interface ProductCardProps {
   className?: ClassName;
   product: IProduct;
+  sideHandleMode: VisualSideHandleMode;
 }

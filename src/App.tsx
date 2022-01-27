@@ -13,13 +13,20 @@ import Panel, { AsideForPanel } from "@ui/DisplayPanel";
 import ProductCard from "@ui/ProductCard";
 import { Category, sizes } from "@data/defined";
 import { generatedProducts } from "@data/generated";
-import { FilterListerProps } from "@app/types/prop-types";
+import {
+  VisualSideHandleMode,
+  FilterControllerProps,
+} from "@app/types/prop-types";
 import SearchIconSVG from "@assets/search-icon.svg";
 import classes from "./App.module.scss";
 
-const FilterLister = ({ className, title, children }: FilterListerProps) => {
+const FilterController = ({
+  className,
+  title,
+  children,
+}: FilterControllerProps) => {
   return (
-    <div className={clsx(classes.filters_lister, className)}>
+    <div className={clsx(classes.filter_controller, className)}>
       <h4 className={classes.title}>{title}</h4>
       <main className={classes.body}>{children}</main>
     </div>
@@ -87,7 +94,10 @@ function App() {
         >
           <div className={classes.panel_body_content}>
             <AsideForPanel className={classes.panel_body_filters}>
-              <FilterLister title="Categories">
+              <FilterController
+                className={classes.categories}
+                title="Categories"
+              >
                 {Object.keys(Category).map((key) => {
                   // @ts-ignore
                   const categoryString = Category[key];
@@ -110,9 +120,9 @@ function App() {
                     </div>
                   );
                 })}
-              </FilterLister>
-              <FilterLister title="Price Range">b</FilterLister>
-              <FilterLister title="Size">
+              </FilterController>
+              <FilterController title="Price Range">b</FilterController>
+              <FilterController title="Size">
                 {sizes.map((currentSize) => {
                   const sizeIsSelected = filters.sizes.includes(currentSize);
                   const triggerForOnClick = (
@@ -132,17 +142,32 @@ function App() {
                     </button>
                   );
                 })}
-              </FilterLister>
+              </FilterController>
             </AsideForPanel>
             <main className={classes.panel_body_item_listing}>
               <header className={classes.header}>
                 <h4 className={classes.title}>New Arrivals</h4>
                 <div className={classes.sort_select}>Sort by Price</div>
               </header>
-              <main>
-                {filteredProducts.map((productData, index) => (
-                  <ProductCard key={index} product={productData} />
-                ))}
+              <main className={classes.filtered_product_listing}>
+                {filteredProducts.map((productData, index) => {
+                  let chosenSideHandleMode = VisualSideHandleMode.ORANGE;
+                  if (index > 0) {
+                    if (index % 2 === 0) {
+                      chosenSideHandleMode = VisualSideHandleMode.GREY;
+                    } else {
+                      chosenSideHandleMode = VisualSideHandleMode.BLACK;
+                    }
+                  }
+                  return (
+                    <ProductCard
+                      className={classes.product_item}
+                      key={index}
+                      product={productData}
+                      sideHandleMode={chosenSideHandleMode}
+                    />
+                  );
+                })}
               </main>
             </main>
           </div>
