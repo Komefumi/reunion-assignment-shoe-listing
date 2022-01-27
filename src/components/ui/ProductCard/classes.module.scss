@@ -1,3 +1,9 @@
+.crisp_light_text {
+  $colorControl: 170;
+  font-weight: 100;
+  letter-spacing: 0.5px;
+  color: rgba($colorControl, $colorControl, $colorControl, 0.9);
+}
 .product_card {
   border: 1px solid var(--lessFaintDark);
   padding: 35px 40px 20px 40px;
@@ -36,6 +42,7 @@
   .subtitle {
     margin-bottom: 5px;
     font-size: 0.9rem;
+    @extend .crisp_light_text;
   }
   .name {
     font-size: 1rem;
@@ -61,6 +68,7 @@
   .price_label {
     font-size: 0.9rem;
     display: block;
+    @extend .crisp_light_text;
   }
   .price_value {
     font-size: 0.975rem;
