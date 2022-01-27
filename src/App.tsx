@@ -56,7 +56,7 @@ const FilterController = ({
   );
 };
 
-function App() {
+export default function App() {
   const [isSortModeSelectOpen, setIsSortModeSelectOpen] =
     useState<boolean>(false);
   const [
@@ -266,10 +266,3 @@ function App() {
   );
 }
 
-export default function AppPrepared() {
-  return (
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
-}
