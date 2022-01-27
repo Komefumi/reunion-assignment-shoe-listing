@@ -29,9 +29,9 @@ export function selectRandomElementFromArray(itemArray: any[]) {
     );
   }
   const lastItemIndex = arrayLength - 1;
-  return itemArray[Math.ceil(Math.random() * lastItemIndex)];
+  return itemArray[Math.floor(Math.random() * arrayLength)];
 }
 
 export function generateRandomPrice(): number {
-  return Math.ceil(Math.random() * MAX_PRICE_UNITS) * PRICE_UNIT_SIZE;
+  return Math.floor(Math.random() * (MAX_PRICE_UNITS + 1)) * PRICE_UNIT_SIZE;
 }
