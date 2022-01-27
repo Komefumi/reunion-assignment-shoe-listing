@@ -3,7 +3,11 @@ import { Provider } from "react-redux";
 import clsx from "clsx";
 import store from "@state/store";
 import { useAppSelector, useAppDispatch } from "@state/hooks";
-import { makeCategoryTrigger, makeSizeTrigger } from "@state/actions/creators";
+import {
+  makeCategoryTrigger,
+  makeSizeTrigger,
+  setSearchQuery,
+} from "@state/actions/creators";
 import DimBackground from "@ui/DimBackground";
 import Panel, { AsideForPanel } from "@ui/DisplayPanel";
 import ProductCard from "@ui/ProductCard";
@@ -23,7 +27,7 @@ const FilterLister = ({ className, title, children }: FilterListerProps) => {
 };
 
 function App() {
-  const dispatcher = useAppDispatch();
+  const dispatch = useAppDispatch();
   const { filters, searchQuery } = useAppSelector((state) => state);
 
   const filteredProducts = generatedProducts.filter((currentProduct) => {
@@ -54,6 +58,12 @@ function App() {
 
     return true;
   });
+
+  const handleSearchQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const nextSearchQuery = e.target.value;
+    dispatch(setSearchQuery(nextSearchQuery));
+  };
+
   return (
     <div className={classes.app}>
       <DimBackground className={classes.background}>
@@ -65,7 +75,12 @@ function App() {
 
               <div className={classes.search_bar}>
                 <SearchIconSVG className={classes.search_icon} />
-                <input className={classes.search_input} type="text" />
+                <input
+                  className={classes.search_input}
+                  type="text"
+                  onChange={handleSearchQueryChange}
+                  value={searchQuery}
+                />
               </div>
             </div>
           }
@@ -78,7 +93,7 @@ function App() {
                   const categoryString = Category[key];
                   const isChecked = filters.categories.includes(categoryString);
                   const onChange = (_event: ChangeEvent<HTMLInputElement>) => {
-                    dispatcher(makeCategoryTrigger(categoryString));
+                    dispatch(makeCategoryTrigger(categoryString));
                   };
                   return (
                     <div
@@ -103,7 +118,7 @@ function App() {
                   const triggerForOnClick = (
                     _event: MouseEvent<HTMLButtonElement>
                   ) => {
-                    dispatcher(makeSizeTrigger(currentSize));
+                    dispatch(makeSizeTrigger(currentSize));
                   };
                   return (
                     <button
