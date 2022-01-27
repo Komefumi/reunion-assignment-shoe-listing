@@ -1,12 +1,25 @@
 // import { Action } from "@reduxjs/toolkit";
-import { Category } from "@data/defined";
 import { IPriceRange, Size, SearchQuery, ActionType } from "./alias";
 
+export enum Category {
+  FLIP_FLOPS = "Flip Flops",
+  SNEAKERS = "Sneakers",
+  LACE_UP_SHOES = "Lace-Up Shoes",
+  SHOE_ACCESSORIES = "Shoe Accessories",
+}
+
+export enum SortMode {
+  PRICE = "PRICE",
+  SIZE = "SIZE",
+}
+
 export interface IState {
-  priceRange: IPriceRange;
-  categories: Category[];
-  sizes: Size[];
-  query: SearchQuery;
+  filters: {
+    priceRange: IPriceRange;
+    categories: Category[];
+    sizes: Size[];
+  };
+  searchQuery: SearchQuery;
 }
 
 export interface IPayloadObject<T> {
@@ -19,5 +32,7 @@ export interface PayloadAction<T> extends IPayloadObject<T> {
 
 export type SetPriceRangeAction = PayloadAction<IPriceRange>;
 export type SetCategoriesAction = PayloadAction<Category[]>;
+export type CategoryTriggerAction = PayloadAction<Category>;
 export type SetSizesAction = PayloadAction<Size[]>;
+export type SizeTriggerAction = PayloadAction<Size>;
 export type SetQueryAction = PayloadAction<SearchQuery>;

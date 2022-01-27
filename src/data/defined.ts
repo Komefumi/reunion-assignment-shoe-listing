@@ -1,17 +1,7 @@
-export enum Category {
-  FLIP_FLOPS = "Flip Flops",
-  SNEAKERS = "Sneakers",
-  LACE_UP_SHOES = "Lace-Up Shoes",
-  SHOE_ACCESSORIES = "Shoe Accessories",
-}
+import { Category } from "@my-types/state";
 
 export const CategoryKeys = Object.keys(Category) as string[];
 export const CategoryValues = Object.values(Category) as Category[];
-
-export enum SortMode {
-  PRICE = "PRICE",
-  SIZE = "SIZE",
-}
 
 export const sizes: number[] = (() => {
   const sizesGenerated = [];
@@ -20,3 +10,6 @@ export const sizes: number[] = (() => {
   }
   return sizesGenerated;
 })();
+
+export { Category };
+export { SortMode } from "@my-types/state";

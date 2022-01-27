@@ -1,6 +1,7 @@
 import { Provider } from "react-redux";
 import clsx from "clsx";
 import store from "@state/store";
+import { useAppSelector, useAppDispatch } from "@state/hooks";
 import DimBackground from "@ui/DimBackground";
 import Panel, { AsideForPanel } from "@ui/DisplayPanel";
 import ProductCard from "@ui/ProductCard";
@@ -20,7 +21,11 @@ const FilterLister = ({ className, title, children }: FilterListerProps) => {
 };
 
 function App() {
-  console.log({ generatedProducts });
+  const { filters } = useAppSelector((state) => state);
+
+  const filteredProducts = generatedProducts.filter((currentProduct) => {
+    return true;
+  });
   return (
     <div className={classes.app}>
       <DimBackground className={classes.background}>
@@ -48,8 +53,8 @@ function App() {
                       className={classes.category_select_with_label}
                       key={key as string}
                     >
-                      <label>{categoryString}</label>
                       <input type="checkbox" value={categoryString} />
+                      <label>{categoryString}</label>
                     </div>
                   );
                 })}

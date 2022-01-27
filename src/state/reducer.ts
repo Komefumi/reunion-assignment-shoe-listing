@@ -4,33 +4,62 @@ import {
   IState,
   SetPriceRangeAction,
   SetCategoriesAction,
+  CategoryTriggerAction,
   SetSizesAction,
+  SizeTriggerAction,
   SetQueryAction,
 } from "@my-types/state";
 import actionNames from "./actions/names";
 
-const { SET_PRICE_RANGE, SET_CATEGORIES, SET_SIZES, SET_QUERY } = actionNames;
+const {
+  SET_PRICE_RANGE,
+  SET_CATEGORIES,
+  CATEGORY_TRIGGER,
+  SET_SIZES,
+  SIZE_TRIGGER,
+  SET_QUERY,
+} = actionNames;
 
 export const initialState: IState = {
-  priceRange: [0, MAX_PRICE],
-  categories: [],
-  sizes: [],
-  query: "",
+  filters: {
+    priceRange: [0, MAX_PRICE],
+    categories: [],
+    sizes: [],
+  },
+  searchQuery: "",
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(SET_PRICE_RANGE, (state, action: SetPriceRangeAction) => {
-      state.priceRange = action.payload.priceRange;
+      state.filters.priceRange = action.payload;
     })
     .addCase(SET_CATEGORIES, (state, action: SetCategoriesAction) => {
-      state.categories = action.payload.categories;
+      state.filters.categories = action.payload;
+    })
+    .addCase(CATEGORY_TRIGGER, (state, action: CategoryTriggerAction) => {
+      const categoryItem = action.payload;
+      const categoryItemIndex = state.filters.categories.indexOf(categoryItem);
+      if (categoryItemIndex === -1) {
+        state.filters.categories.push(categoryItem);
+      } else {
+        state.filters.categories.splice(categoryItemIndex, 1);
+      }
     })
     .addCase(SET_SIZES, (state, action: SetSizesAction) => {
-      state.sizes = action.payload.sizes;
+      state.filters.sizes = action.payload;
+    })
+    .addCase(SIZE_TRIGGER, (state, action: SizeTriggerAction) => {
+      const sizeItem = action.payload;
+      const sizeItemIndex = state.filters.sizes.indexOf(sizeItem);
+      if (sizeItemIndex === -1) {
+        state.filters.sizes.push(sizeItem);
+      } else {
+        state.filters.sizes.splice(sizeItemIndex, 1);
+      }
     })
     .addCase(SET_QUERY, (state, action: SetQueryAction) => {
-      state.query = action.payload.query;
+      state.searchQuery = action.payload;
     });
 });
 
