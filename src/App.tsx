@@ -21,9 +21,34 @@ const FilterLister = ({ className, title, children }: FilterListerProps) => {
 };
 
 function App() {
-  const { filters } = useAppSelector((state) => state);
+  const { filters, searchQuery } = useAppSelector((state) => state);
 
   const filteredProducts = generatedProducts.filter((currentProduct) => {
+    const { categories, sizes, priceRange } = filters;
+    const [minPrice, maxPrice] = priceRange;
+
+    if (categories.length) {
+      if (!categories.includes(currentProduct.category)) return false;
+    }
+
+    if (sizes.length) {
+      if (!sizes.includes(currentProduct.size)) return false;
+    }
+
+    const { price } = currentProduct;
+
+    if (price < minPrice || price > maxPrice) {
+      return false;
+    }
+
+    if (searchQuery.length) {
+      if (
+        !currentProduct.name.includes(searchQuery) &&
+        !currentProduct.subtitle.includes(searchQuery)
+      )
+        return false;
+    }
+
     return true;
   });
   return (
@@ -72,7 +97,7 @@ function App() {
                 <div className={classes.sort_select}>Sort by Price</div>
               </header>
               <main>
-                {generatedProducts.map((productData, index) => (
+                {filteredProducts.map((productData, index) => (
                   <ProductCard key={index} product={productData} />
                 ))}
               </main>
