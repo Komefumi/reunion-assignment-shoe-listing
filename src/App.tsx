@@ -1,7 +1,9 @@
+import { ChangeEvent, MouseEvent } from "react";
 import { Provider } from "react-redux";
 import clsx from "clsx";
 import store from "@state/store";
 import { useAppSelector, useAppDispatch } from "@state/hooks";
+import { makeCategoryTrigger, makeSizeTrigger } from "@state/actions/creators";
 import DimBackground from "@ui/DimBackground";
 import Panel, { AsideForPanel } from "@ui/DisplayPanel";
 import ProductCard from "@ui/ProductCard";
@@ -21,6 +23,7 @@ const FilterLister = ({ className, title, children }: FilterListerProps) => {
 };
 
 function App() {
+  const dispatcher = useAppDispatch();
   const { filters, searchQuery } = useAppSelector((state) => state);
 
   const filteredProducts = generatedProducts.filter((currentProduct) => {
@@ -73,12 +76,21 @@ function App() {
                 {Object.keys(Category).map((key) => {
                   // @ts-ignore
                   const categoryString = Category[key];
+                  const isChecked = filters.categories.includes(categoryString);
+                  const onChange = (_event: ChangeEvent<HTMLInputElement>) => {
+                    dispatcher(makeCategoryTrigger(categoryString));
+                  };
                   return (
                     <div
                       className={classes.category_select_with_label}
                       key={key as string}
                     >
-                      <input type="checkbox" value={categoryString} />
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        value={categoryString}
+                        onChange={onChange}
+                      />
                       <label>{categoryString}</label>
                     </div>
                   );
@@ -86,9 +98,25 @@ function App() {
               </FilterLister>
               <FilterLister title="Price Range">b</FilterLister>
               <FilterLister title="Size">
-                {sizes.map((currentSize) => (
-                  <button key={currentSize}>{currentSize}</button>
-                ))}
+                {sizes.map((currentSize) => {
+                  const sizeIsSelected = filters.sizes.includes(currentSize);
+                  const triggerForOnClick = (
+                    _event: MouseEvent<HTMLButtonElement>
+                  ) => {
+                    dispatcher(makeSizeTrigger(currentSize));
+                  };
+                  return (
+                    <button
+                      key={currentSize}
+                      className={clsx(
+                        sizeIsSelected && classes.size_is_selected
+                      )}
+                      onClick={triggerForOnClick}
+                    >
+                      {currentSize}
+                    </button>
+                  );
+                })}
               </FilterLister>
             </AsideForPanel>
             <main className={classes.panel_body_item_listing}>
