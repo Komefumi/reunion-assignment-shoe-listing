@@ -42,6 +42,7 @@ const stylesConfig = {
               },
             },
           },
+          "sass-loader",
         ],
       },
     ],
