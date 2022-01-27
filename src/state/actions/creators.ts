@@ -10,7 +10,7 @@ const {
   CATEGORY_TRIGGER,
   SET_SIZES,
   SIZE_TRIGGER,
-  SET_QUERY,
+  SET_SEARCH_QUERY,
 } = actionNames;
 
 export const setPriceRange = createAction(
@@ -31,6 +31,6 @@ export const setSizes = createAction(SET_SIZES, (sizes: Size[]) =>
 export const makeSizeTrigger = createAction(SIZE_TRIGGER, (sizeItem: Size) =>
   createPayloadObject(sizeItem)
 );
-export const setQuery = createAction(SET_QUERY, (query: SearchQuery) =>
+export const setSearchQuery = createAction(SET_SEARCH_QUERY, (query: SearchQuery) =>
   createPayloadObject(query)
 );

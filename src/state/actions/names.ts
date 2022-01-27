@@ -4,5 +4,5 @@ export default {
   CATEGORY_TRIGGER: "category-trigger",
   SET_SIZES: "set-sizes",
   SIZE_TRIGGER: "size-trigger",
-  SET_QUERY: "set-query",
+  SET_SEARCH_QUERY: "set-search-query",
 };

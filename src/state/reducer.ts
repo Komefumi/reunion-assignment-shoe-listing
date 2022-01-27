@@ -17,7 +17,7 @@ const {
   CATEGORY_TRIGGER,
   SET_SIZES,
   SIZE_TRIGGER,
-  SET_QUERY,
+  SET_SEARCH_QUERY,
 } = actionNames;
 
 export const initialState: IState = {
@@ -58,7 +58,7 @@ const reducer = createReducer(initialState, (builder) => {
         state.filters.sizes.splice(sizeItemIndex, 1);
       }
     })
-    .addCase(SET_QUERY, (state, action: SetQueryAction) => {
+    .addCase(SET_SEARCH_QUERY, (state, action: SetQueryAction) => {
       state.searchQuery = action.payload;
     });
 });
