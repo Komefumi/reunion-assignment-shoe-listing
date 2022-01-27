@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import type { IProduct } from "./structure";
-import type { ClassName } from "./alias";
+import type { ClassName, IPriceRange } from "./alias";
 
 export interface WrapperProps {
   children: ReactNode;
@@ -29,4 +29,12 @@ export interface ProductCardProps {
   className?: ClassName;
   product: IProduct;
   sideHandleMode: VisualSideHandleMode;
+}
+
+export interface RangeSliderProps {
+  lowerBound: number;
+  upperBound: number;
+  currentLowerValue: number;
+  currentHigherValue: number;
+  setLowerAndHigherValues: (priceRange: IPriceRange) => void;
 }

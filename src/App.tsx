@@ -11,11 +11,14 @@ import {
   makeCategoryTrigger,
   makeSizeTrigger,
   setSearchQuery,
+  setPriceRange,
 } from "@state/actions/creators";
 import DimBackground from "@ui/DimBackground";
 import Panel, { AsideForPanel } from "@ui/DisplayPanel";
 import ProductCard from "@ui/ProductCard";
+import RangeSlider from "@ui/RangeSlider";
 import { Category, sizes } from "@data/defined";
+import { IPriceRange } from "@my-types/alias";
 import {
   VisualSideHandleMode,
   FilterControllerProps,
@@ -39,6 +42,7 @@ const FilterController = ({
 function App() {
   const dispatch = useAppDispatch();
   const { filters, searchQuery } = useAppSelector((state) => state);
+  const { priceRange } = filters;
 
   const filteredProducts = useGetFilteredProducts();
 
@@ -97,7 +101,17 @@ function App() {
                   );
                 })}
               </FilterController>
-              <FilterController title="Price Range">b</FilterController>
+              <FilterController title="Price Range">
+                <RangeSlider
+                  lowerBound={0}
+                  upperBound={2000}
+                  currentLowerValue={priceRange[0]}
+                  currentHigherValue={priceRange[1]}
+                  setLowerAndHigherValues={(priceRange: IPriceRange) => {
+                    dispatch(setPriceRange(priceRange));
+                  }}
+                />
+              </FilterController>
               <FilterController className={classes.sizes} title="Size">
                 {sizes.map((currentSize) => {
                   const sizeIsSelected = filters.sizes.includes(currentSize);
