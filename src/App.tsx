@@ -91,7 +91,7 @@ export default function App() {
           className={classes.panel}
           headerChildren={
             <div className={classes.panel_header_content}>
-              <h4 className={classes.title}>Shoe</h4>
+              <h4 className={classes.title}>Shoe.</h4>
 
               <div className={classes.search_bar}>
                 <SearchIconSVG className={classes.search_icon} />
@@ -265,4 +265,3 @@ export default function App() {
     </div>
   );
 }
-
