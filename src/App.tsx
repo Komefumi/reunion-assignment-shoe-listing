@@ -122,7 +122,7 @@ function App() {
                 })}
               </FilterController>
               <FilterController title="Price Range">b</FilterController>
-              <FilterController title="Size">
+              <FilterController className={classes.sizes} title="Size">
                 {sizes.map((currentSize) => {
                   const sizeIsSelected = filters.sizes.includes(currentSize);
                   const triggerForOnClick = (
@@ -134,6 +134,7 @@ function App() {
                     <button
                       key={currentSize}
                       className={clsx(
+                        classes.size_selector,
                         sizeIsSelected && classes.size_is_selected
                       )}
                       onClick={triggerForOnClick}

@@ -1,5 +1,6 @@
 .background {
   min-height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,6 +47,14 @@
 
 .panel_body_content {
   display: flex;
+}
+
+.panel_body_filters {
+  flex: 1 1 25%;
+}
+
+.panel_body_item_listing {
+  flex: 1 1 75%;
 }
 
 .filter_controller {
@@ -97,9 +106,32 @@
   }
 }
 
-.size_is_selected {
-  background-color: #111;
-  color: #fefefe;
+.panel_body_filters .sizes {
+  .title {
+    margin: 0;
+    padding-bottom: 0;
+  }
+  .body {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .size_selector {
+    display: block;
+    cursor: pointer;
+    background-color: #fafbfb;
+    border: 1px solid #eaeaea;
+    color: #333;
+    padding: 8px;
+    margin: 4px;
+    border-radius: 5px;
+  }
+  .size_is_selected {
+    // background-color: #111;
+    // color: #fefefe;
+    background-color: #fefefe;
+    font-weight: bold;
+    box-shadow: 0px 0px 2px 2px #eaeaea;
+  }
 }
 
 .panel_body_item_listing {
