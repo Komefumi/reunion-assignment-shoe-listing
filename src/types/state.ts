@@ -17,7 +17,7 @@ export interface PayloadAction<T> extends IPayloadObject<T> {
   type: ActionType;
 }
 
-export type SetPriceRangeAction = PayloadAction<{ priceRange: IPriceRange }>;
-export type SetCategoriesAction = PayloadAction<{ categories: Category[] }>;
-export type SetSizesAction = PayloadAction<{ sizes: Size[] }>;
-export type SetQueryAction = PayloadAction<{ query: SearchQuery }>;
+export type SetPriceRangeAction = PayloadAction<IPriceRange>;
+export type SetCategoriesAction = PayloadAction<Category[]>;
+export type SetSizesAction = PayloadAction<Size[]>;
+export type SetQueryAction = PayloadAction<SearchQuery>;
