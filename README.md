@@ -1,5 +1,7 @@
 # Shoe Listing Assignment For Postion of Front-End Engineer at Reunion
 
+The live project can be reached [here](https://reunion-shoe-listing-assignment.surge.sh/).
+
 This is the repository containing code for the assignment.
 
 To run the project, install all dependencies and run
