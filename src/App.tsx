@@ -40,6 +40,7 @@ function App() {
   const filteredProducts = generatedProducts.filter((currentProduct) => {
     const { categories, sizes, priceRange } = filters;
     const [minPrice, maxPrice] = priceRange;
+    const searchQueryLowercase = searchQuery.toLowerCase();
 
     if (categories.length) {
       if (!categories.includes(currentProduct.category)) return false;
@@ -57,8 +58,8 @@ function App() {
 
     if (searchQuery.length) {
       if (
-        !currentProduct.name.includes(searchQuery) &&
-        !currentProduct.subtitle.includes(searchQuery)
+        !currentProduct.name.toLowerCase().includes(searchQueryLowercase) &&
+        !currentProduct.subtitle.toLowerCase().includes(searchQueryLowercase)
       )
         return false;
     }
