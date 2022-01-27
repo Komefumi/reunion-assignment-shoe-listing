@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "run-live-server": "node config/liveserver.js",
     "compile-dev": "npx webpack --config config/webpack.config.js --watch --mode development",
+    "compile-prod": "npx webpack --config config/webpack.config.js --mode production",
     "dev": "concurrently \"npm run run-live-server\" \"npm run compile-dev\""
   },
   "author": "Arjun Raju Pillai <komefumi@protonmail.ch>",
