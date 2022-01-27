@@ -1,4 +1,4 @@
-import { AssetPath } from "./alias";
+import { AssetPath, Size } from "./alias";
 import { Category } from "@data/defined";
 
 interface IImageData {
@@ -13,4 +13,5 @@ export interface IProduct {
   category: Category;
   imageData: IImageData;
   price: number;
+  size: Size;
 }

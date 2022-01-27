@@ -1,4 +1,4 @@
-import { CategoryValues } from "./defined";
+import { CategoryValues, sizes } from "./defined";
 import {
   generateRandomPhrase,
   selectRandomElementFromArray,
@@ -28,6 +28,7 @@ export const generatedProducts: IProduct[] = (() => {
         back: selectRandomElementFromArray(plxImages),
       },
       price: generateRandomPrice(),
+      size: selectRandomElementFromArray(sizes),
     } as IProduct);
   }
   return productItemsItx;
